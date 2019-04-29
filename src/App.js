@@ -1,25 +1,45 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import './App.css'
+
+import marked from 'marked'
+import { sampleText } from './sampleText'
 
 class App extends Component {
+  state = {
+    text: sampleText
+  }
+
+  componentDidMount () {
+    const text = localStorage.getItem('text')
+    text ? this.setState({ text }) : this.setState({ text:sampleText })
+  }
+
+  componentDidUpdate () {
+    localStorage.setItem('text', this.state.text)
+  }
+
+  handleChange = event => this.setState({ text : event.target.value })
+
+  renderText = text => marked(text, { sanitize:true })
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div className="container">
+        <div className="row">
+
+          <div className="col-sm-6">
+            <textarea 
+            className="form-control" 
+            rows="35"
+            onChange={this.handleChange}
+            value={this.state.text} />
+          </div>
+
+          <div className="col-sm-6">
+            <div dangerouslySetInnerHTML={{ __html:this.renderText(this.state.text)}}></div>
+          </div>
+
+        </div>
       </div>
     );
   }

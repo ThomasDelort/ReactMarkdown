@@ -1,8 +1,13 @@
 {
+  "homepage": ".",
   "name": "markdown",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "bootstrap": "^4.3.1",
+    "jquery": "^3.3.1",
+    "marked": "^0.6.1",
+    "popper.js": "^1.14.7",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
     "react-scripts": "2.1.8"
